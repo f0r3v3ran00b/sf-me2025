@@ -1,0 +1,21 @@
+<template>
+    <div>
+        <lightning-card title="Container Component">
+            <div class="slds-m-around_medium">
+                ⚡️ Parent Component
+            </div>
+            <lightning-tabset>
+                <lightning-tab label="Item One">
+                    <c-hello-greeting></c-hello-greeting>                    
+                    <c-main-tab></c-main-tab>
+                </lightning-tab>
+                <lightning-tab label="Item Two" title="2nd tab extended title">
+                    Two Content !
+                </lightning-tab>
+                <lightning-tab label="Item Three">
+                    Three Content !
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-card>
+    </div>
+</template>
