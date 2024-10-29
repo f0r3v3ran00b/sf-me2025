@@ -1,0 +1,27 @@
+<!-- utilityBar.html -->
+<template>
+  <div class="utility-bar">
+    <lightning-button-icon
+      icon-name="utility:copy"
+      alternative-text="Copy"
+      title="Copy"
+      onclick={handleActionClick}
+      data-action="copy"
+    ></lightning-button-icon>
+    <lightning-button-icon
+      icon-name="utility:edit"
+      alternative-text="Rename"
+      title="Rename"
+      onclick={handleActionClick}
+      data-action="rename"
+    ></lightning-button-icon>
+    <lightning-button-icon
+      icon-name="utility:preview"
+      alternative-text="Preview"
+      title="Preview"
+      onclick={handleActionClick}
+      data-action="preview"
+    ></lightning-button-icon>
+    <!-- Add more action buttons as needed -->
+  </div>
+</template>

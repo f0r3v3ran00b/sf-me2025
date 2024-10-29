@@ -1,0 +1,26 @@
+<template>
+  <div class="file-explorer-app">
+    <c-utility-bar onaction={handleAction}></c-utility-bar>
+    <div class="content">
+      <div class="left-panel">
+        <c-file-tree
+          tree={fileTreeData}
+          onfolderselection={handleFolderSelection}
+          onfileselection={handleFileSelection}
+        ></c-file-tree>
+      </div>
+      <div class="right-panel">
+        <c-file-list
+          data={selectedFolder.files}
+          onfileselection={handleFileSelection}
+        ></c-file-list>
+      </div>
+    </div>
+    <template if:true={isModalOpen}>
+      <c-file-preview-modal
+        file={selectedFile}
+        onclose={handleModalClose}
+      ></c-file-preview-modal>
+    </template>
+  </div>
+</template>

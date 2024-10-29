@@ -1,0 +1,23 @@
+/* fileExplorerApp.css */
+.file-explorer-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.left-panel {
+    width: 250px;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+}
+
+.right-panel {
+    flex: 1;
+    overflow-y: auto;
+}

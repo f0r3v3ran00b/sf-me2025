@@ -1,0 +1,11 @@
+/* utilityBar.css */
+.utility-bar {
+    display: flex;
+    background-color: #f4f6f9;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.utility-bar lightning-button-icon {
+    margin-right: 5px;
+}

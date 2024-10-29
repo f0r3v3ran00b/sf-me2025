@@ -1,0 +1,12 @@
+<!-- fileList.html -->
+<template>
+  <lightning-datatable
+    key-field="name"
+    data={data}
+    columns={columns}
+    sorted-by={sortedBy}
+    sorted-direction={sortDirection}
+    onsort={handleSort}
+    onrowaction={handleRowAction}
+  ></lightning-datatable>
+</template>

@@ -4,6 +4,11 @@
         <members>containerComponent</members>
         <members>helloGreeting</members>
         <members>mainTab</members>
+        <members>fileExplorerApp</members>
+        <members>fileList</members>
+        <members>filePreviewModal</members>
+        <members>fileTree</members>
+        <members>utilityBar</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>62.0</version>

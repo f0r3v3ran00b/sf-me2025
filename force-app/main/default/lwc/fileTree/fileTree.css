@@ -1,0 +1,27 @@
+/* fileTree.css */
+.file-tree {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.tree-item {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.item-name {
+    cursor: pointer;
+}
