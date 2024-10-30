@@ -9,6 +9,7 @@
         <members>filePreviewModal</members>
         <members>fileTree</members>
         <members>utilityBar</members>
+        <members>integrationManager</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>62.0</version>

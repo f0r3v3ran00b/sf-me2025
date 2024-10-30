@@ -1,0 +1,100 @@
+<template>
+  <lightning-card title="Site Registration">
+    <div class="slds-p-around_medium">
+      <!-- Add New Integration Button -->
+      <lightning-button
+        variant="brand"
+        label="Add New Integration"
+        icon-name="utility:add"
+        icon-position="left"
+        class="slds-m-bottom_medium"
+        onclick={openAddIntegrationModal}>
+      </lightning-button>
+      <!-- Table of integrations -->
+      <lightning-datatable
+        key-field="id"
+        data={integrations}
+        columns={columns}
+        hide-checkbox-column="true"
+        onrowaction={handleRowAction}>
+      </lightning-datatable>
+    </div>
+  </lightning-card>
+
+  <!-- Add/Edit Integration Modal -->
+  <template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <!-- Modal Header -->
+        <header class="slds-modal__header">
+          <lightning-button-icon
+            icon-name="utility:close"
+            variant="bare-inverse"
+            alternative-text="Close"
+            class="slds-modal__close"
+            onclick={closeModal}>
+          </lightning-button-icon>
+          <h2 class="slds-text-heading_medium">{modalTitle}</h2>
+        </header>
+        <!-- Modal Content -->
+        <div class="slds-modal__content slds-p-around_medium">
+          <!-- Select Integration Type (only when adding new and type not selected) -->
+          <template if:true={isAddingNew} if:false={newIntegration.type}>
+            <lightning-combobox
+              name="integrationType"
+              label="Select Integration Type"
+              placeholder="Select type"
+              options={integrationTypeOptions}
+              value={newIntegration.type}
+              onchange={handleTypeChange}>
+            </lightning-combobox>
+          </template>
+          <!-- Integration Details Form -->
+          <template if:true={newIntegration.type}>
+            <div class="slds-m-top_medium slds-grid slds-wrap slds-gutters">
+              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                <lightning-input
+                  label="Name"
+                  value={newIntegration.name}
+                  onchange={handleInputChange}
+                  data-field="name">
+                </lightning-input>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                <lightning-input
+                  label="Domain"
+                  value={newIntegration.domain}
+                  onchange={handleInputChange}
+                  data-field="domain">
+                </lightning-input>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                <lightning-input
+                  label="URL"
+                  value={newIntegration.url}
+                  onchange={handleInputChange}
+                  data-field="url">
+                </lightning-input>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                <lightning-input
+                  label="Username"
+                  value={newIntegration.username}
+                  onchange={handleInputChange}
+                  data-field="username">
+                </lightning-input>
+              </div>
+            </div>
+          </template>
+        </div>
+        <!-- Modal Footer -->
+        <footer class="slds-modal__footer">
+          <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+          <lightning-button variant="brand" label={modalButtonLabel} onclick={handleSaveIntegration}></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

@@ -37,5 +37,8 @@
     "**/{aura,lwc}/**/*.js": [
       "eslint"
     ]
-  }
+  },
+  "main": "jest.config.js",
+  "author": "",
+  "license": "ISC"
 }

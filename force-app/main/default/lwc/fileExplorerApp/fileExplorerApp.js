@@ -6,13 +6,16 @@ export default class FileExplorerApp extends LightningElement {
   @track selectedFolder = null;
   @track selectedFile = null;
   @track isModalOpen = false;
+  @track treeDetails = new Map();
 
   connectedCallback() {
     this.initializeData();
+    this.initializeTreeDetails();
     console.log('fileTreeData: ', this.fileTreeData);
   }
 
   initializeData() {
+
     this.fileTreeData = [
       {
         label: 'Western Sales Director',
@@ -21,18 +24,18 @@ export default class FileExplorerApp extends LightningElement {
         items: [
           {
             label: 'Western Sales Manager',
-            name: '2',
+            name: '11',
             expanded: true,
             items: [
               {
                 label: 'CA Sales Rep',
-                name: '3',
+                name: '111',
                 expanded: true,
                 items: [],
               },
               {
                 label: 'OR Sales Rep',
-                name: '4',
+                name: '112',
                 expanded: true,
                 items: [],
               },
@@ -42,23 +45,23 @@ export default class FileExplorerApp extends LightningElement {
       },
       {
         label: 'Eastern Sales Director',
-        name: '5',
+        name: '2',
         expanded: false,
         items: [
           {
             label: 'Easter Sales Manager',
-            name: '6',
+            name: '21',
             expanded: true,
             items: [
               {
                 label: 'NY Sales Rep',
-                name: '7',
+                name: '211',
                 expanded: true,
                 items: [],
               },
               {
                 label: 'MA Sales Rep',
-                name: '8',
+                name: '212',
                 expanded: true,
                 items: [],
               },
@@ -68,23 +71,23 @@ export default class FileExplorerApp extends LightningElement {
       },
       {
         label: 'International Sales Director',
-        name: '9',
+        name: '3',
         expanded: true,
         items: [
           {
             label: 'Asia Sales Manager',
-            name: '10',
+            name: '31',
             expanded: true,
             items: [
               {
                 label: 'Sales Rep1',
-                name: '11',
+                name: '311',
                 expanded: true,
                 items: [],
               },
               {
                 label: 'Sales Rep2',
-                name: '12',
+                name: '312',
                 expanded: true,
                 items: [],
               },
@@ -92,18 +95,18 @@ export default class FileExplorerApp extends LightningElement {
           },
           {
             label: 'Europe Sales Manager',
-            name: '13',
+            name: '32',
             expanded: false,
             items: [
               {
                 label: 'Sales Rep1',
-                name: '14',
+                name: '321',
                 expanded: true,
                 items: [],
               },
               {
                 label: 'Sales Rep2',
-                name: '15',
+                name: '322',
                 expanded: true,
                 items: [],
               },
@@ -117,6 +120,13 @@ export default class FileExplorerApp extends LightningElement {
   }
 
   ;
+
+  initializeTreeDetails() {
+    this.treeDetails.set(1, 'Super Awesome 1');
+    this.treeDetails.set(11, 'Super Awesome 11');
+    this.treeDetails.set(2, 'Super Awesome 2');
+    this.treeDetails.set(3, 'Super Awesome 3');
+  }
 
   handleFolderSelection(event) {
     this.selectedFolder = event.detail;

@@ -3,6 +3,7 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class FileList extends LightningElement {
   @api _data = [];
+  @api treeDetails;
   @track sortedData = [];
   @track columns = [
     { label: 'Name', fieldName: 'name', sortable: true },
