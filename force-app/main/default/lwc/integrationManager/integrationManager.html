@@ -1,17 +1,19 @@
 <template>
-  <lightning-card title="Site Registration">
+  <lightning-card title="Integration Manager">
     <div class="slds-p-around_medium">
       <!-- Add New Integration Button -->
       <lightning-button
         variant="brand"
-        label="Add New Integration"
+        label="Add New Site"
         icon-name="utility:add"
         icon-position="left"
-        class="slds-m-bottom_medium"
+        class="slds-var-m-around_large"
         onclick={openAddIntegrationModal}>
       </lightning-button>
+      <br>
       <!-- Table of integrations -->
       <lightning-datatable
+        class="slds-var-m-around_large"
         key-field="id"
         data={integrations}
         columns={columns}
@@ -52,41 +54,20 @@
           <!-- Integration Details Form -->
           <template if:true={newIntegration.type}>
             <div class="slds-m-top_medium slds-grid slds-wrap slds-gutters">
-              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
-                <lightning-input
-                  label="Name"
-                  value={newIntegration.name}
-                  onchange={handleInputChange}
-                  data-field="name">
-                </lightning-input>
-              </div>
-              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
-                <lightning-input
-                  label="Domain"
-                  value={newIntegration.domain}
-                  onchange={handleInputChange}
-                  data-field="domain">
-                </lightning-input>
-              </div>
-              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
-                <lightning-input
-                  label="URL"
-                  value={newIntegration.url}
-                  onchange={handleInputChange}
-                  data-field="url">
-                </lightning-input>
-              </div>
-              <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
-                <lightning-input
-                  label="Username"
-                  value={newIntegration.username}
-                  onchange={handleInputChange}
-                  data-field="username">
-                </lightning-input>
-              </div>
+              <!-- Dynamically render fields based on integration type -->
+              <template for:each={currentFields} for:item="field">
+                <div key={field.name} class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                  <lightning-input
+                    label={field.label}
+                    value={field.value}
+                    type={field.type}
+                    onchange={handleDynamicInputChange}
+                    data-field={field.name}>
+                  </lightning-input>
+                </div>
+              </template>
             </div>
-          </template>
-        </div>
+          </template>        </div>
         <!-- Modal Footer -->
         <footer class="slds-modal__footer">
           <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>

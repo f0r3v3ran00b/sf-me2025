@@ -12,5 +12,9 @@
         <members>integrationManager</members>
         <name>LightningComponentBundle</name>
     </types>
+    <types>
+        <members>IntegrationController</members>
+        <name>ApexClass</name>
+    </types>
     <version>62.0</version>
 </Package>
