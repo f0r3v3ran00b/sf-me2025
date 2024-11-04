@@ -1,0 +1,22 @@
+/* integrationManager.css */
+
+.integration-card {
+    min-height: 150px;
+}
+
+.integration-card .slds-media {
+    align-items: center;
+}
+
+.integration-card .slds-media h3 {
+    margin: 0;
+}
+
+.integration-card p {
+    margin: 0;
+}
+
+.json-textarea {
+    font-family: monospace;
+    font-size: 0.85rem;
+}

@@ -1,33 +1,43 @@
 import { LightningElement, track } from 'lwc';
 import processIntegrations from '@salesforce/apex/IntegrationController.processIntegrations';
 
-export default class IntegrationManager extends LightningElement {
-  @track isJsonModalOpen = false;
-  integrationsJson = '';
+export default class SiteRegistrationCards extends LightningElement {
   @track integrations = [
-    { id: '1', name: 'My S3 Bucket', type: 'AWS S3', iconName: 'custom:custom1', domain: 'amazonaws.com', url: 'https://s3.amazonaws.com/my-bucket', username: 'aws-user', accessKey: 'AKIA...', secretKey: 'SECRET...' },
-    { id: '2', name: 'Company Dropbox', type: 'Dropbox', iconName: 'custom:custom2', domain: 'dropbox.com', url: 'https://www.dropbox.com/home/Company', username: 'company@example.com', apiToken: 'TOKEN...' },
-    { id: '3', name: 'Azure Storage', type: 'Azure', iconName: 'custom:custom3', domain: 'azure.com', url: 'https://myaccount.blob.core.windows.net', username: 'azure-user', storageAccount: 'myaccount', accessKey: 'ACCESS_KEY...' },
-    { id: '4', name: 'FTP Server', type: 'FTP', iconName: 'utility:world', domain: 'ftp.example.com', url: 'ftp://ftp.example.com', username: 'ftp-user', password: 'PASSWORD' },
-  ];
-
-  @track columns = [
     {
-      label: 'Name',
-      fieldName: 'name',
-      type: 'text',
-      cellAttributes: {
-        iconName: { fieldName: 'iconName' },
-        iconPosition: 'left'
-      }
+      id: '1',
+      name: 'My S3 Bucket',
+      type: 'AWS S3',
+      iconName: 'utility:cloud',
+      domain: 'amazonaws.com',
+      url: 'https://s3.amazonaws.com/my-bucket',
+      accessKey: 'AKIA...',
+      secretKey: 'SECRET...',
+      bucketName: 'my-bucket',
     },
-    { label: 'Type', fieldName: 'type', type: 'text' },
-    { label: 'Domain', fieldName: 'domain', type: 'text' },
-    { label: 'URL', fieldName: 'url', type: 'url' },
-    { label: 'Username', fieldName: 'username', type: 'text' },
     {
-      type: 'action',
-      typeAttributes: { rowActions: this.getRowActions }
+      id: '2',
+      name: 'Company Dropbox',
+      type: 'Dropbox',
+      iconName: 'utility:open_folder',
+      apiToken: 'TOKEN...',
+    },
+    {
+      id: '3',
+      name: 'Azure Storage',
+      type: 'Azure',
+      iconName: 'utility:connected_apps',
+      storageAccount: 'myaccount',
+      accessKey: 'ACCESS_KEY...',
+    },
+    {
+      id: '4',
+      name: 'FTP Server',
+      type: 'FTP',
+      iconName: 'utility:world',
+      url: 'ftp://ftp.example.com',
+      username: 'ftp-user',
+      password: 'PASSWORD',
+      port: 21,
     },
   ];
 
@@ -37,6 +47,9 @@ export default class IntegrationManager extends LightningElement {
   @track modalTitle = '';
   @track modalButtonLabel = '';
   @track editingIntegrationId = null;
+
+  @track isJsonModalOpen = false;
+  integrationsJson = '';
 
   // Fields configuration for each integration type
   integrationFields = {
@@ -74,6 +87,22 @@ export default class IntegrationManager extends LightningElement {
     { label: 'FTP', value: 'FTP' },
   ];
 
+  // Map integration types to SLDS icons
+  getIconName(type) {
+    switch (type) {
+      case 'AWS S3':
+        return 'utility:cloud';
+      case 'Dropbox':
+        return 'utility:open_folder';
+      case 'Azure':
+        return 'utility:connected_apps';
+      case 'FTP':
+        return 'utility:world';
+      default:
+        return 'utility:apps';
+    }
+  }
+
   // Computed property to get the current fields based on selected integration type
   get currentFields() {
     const fields = this.integrationFields[this.newIntegration.type] || [];
@@ -85,12 +114,30 @@ export default class IntegrationManager extends LightningElement {
     });
   }
 
+  // Getter to precompute display fields for each integration
+  get integrationsWithDisplayFields() {
+    return this.integrations.map(integration => {
+      const fieldsConfig = this.integrationFields[integration.type] || [];
+      const displayFields = fieldsConfig.map(field => {
+        return {
+          label: field.label,
+          name: field.name,
+          value: integration[field.name] || '',
+        };
+      });
+      return {
+        ...integration,
+        displayFields,
+      };
+    });
+  }
+
   // Open the modal to add a new integration
   openAddIntegrationModal() {
     this.isAddingNew = true;
     this.newIntegration = {};
     this.modalTitle = 'Add New Site';
-    this.modalButtonLabel = 'Add Integration';
+    this.modalButtonLabel = 'Add New Site';
     this.isModalOpen = true;
   }
 
@@ -114,10 +161,11 @@ export default class IntegrationManager extends LightningElement {
     const field = event.target.dataset.field;
     this.newIntegration = { ...this.newIntegration, [field]: event.target.value };
   }
+
   // Save the new or edited integration
   handleSaveIntegration() {
     // Simple validation: ensure required fields are filled
-    const requiredFields = this.currentFields.filter(field => field.label !== 'Optional');
+    const requiredFields = this.integrationFields[this.newIntegration.type].filter(field => !field.optional);
     const missingFields = requiredFields.filter(field => !this.newIntegration[field.name]);
 
     if (missingFields.length > 0) {
@@ -142,7 +190,7 @@ export default class IntegrationManager extends LightningElement {
     }
 
     // Convert integrations array to JSON
-    this.integrationsJson = JSON.stringify(this.integrations, null, 2); // Pretty-print the JSON
+    this.integrationsJson = JSON.stringify(this.integrations, null, 2);
 
     // Display the JSON in a modal dialog
     this.isJsonModalOpen = true;
@@ -157,27 +205,9 @@ export default class IntegrationManager extends LightningElement {
       });
   }
 
-  // Handle row action buttons
-  handleRowAction(event) {
-    const actionName = event.detail.action.name;
-    const row = event.detail.row;
-    if (actionName === 'test') {
-      this.handleTestIntegration(row.id);
-    } else if (actionName === 'edit') {
-      this.handleEditIntegration(row.id);
-    } else if (actionName === 'delete') {
-      this.handleDeleteIntegration(row.id);
-    }
-  }
-
-  // Handle Test button click
-  handleTestIntegration(integrationId) {
-    // Implement integration test logic here
-    console.log(`Testing integration ${integrationId}`);
-  }
-
   // Handle Edit button click
-  handleEditIntegration(integrationId) {
+  handleEditIntegration(event) {
+    const integrationId = event.target.dataset.id;
     const integration = this.integrations.find(intg => intg.id === integrationId);
     if (integration) {
       this.isAddingNew = false;
@@ -190,7 +220,8 @@ export default class IntegrationManager extends LightningElement {
   }
 
   // Handle Delete button click
-  handleDeleteIntegration(integrationId) {
+  handleDeleteIntegration(event) {
+    const integrationId = event.target.dataset.id;
     this.integrations = this.integrations.filter(integration => integration.id !== integrationId);
 
     // Convert integrations array to JSON
@@ -209,33 +240,8 @@ export default class IntegrationManager extends LightningElement {
       });
   }
 
+  // Method to close the JSON modal
   closeJsonModal() {
     this.isJsonModalOpen = false;
-  }
-
-  // Map integration types to SLDS icons
-  getIconName(type) {
-    switch (type) {
-      case 'AWS S3':
-        return 'custom:custom1';
-      case 'Dropbox':
-        return 'custom:custom2';
-      case 'Azure':
-        return 'custom:custom3';
-      case 'FTP':
-        return 'utility:world';
-      default:
-        return 'utility:apps';
-    }
-  }
-
-  // Define row actions
-  getRowActions(row, doneCallback) {
-    const actions = [
-      { label: 'Test', name: 'test', iconName: 'utility:refresh' },
-      { label: 'Edit', name: 'edit', iconName: 'utility:edit' },
-      { label: 'Delete', name: 'delete', iconName: 'utility:delete', destructive: true },
-    ];
-    doneCallback(actions);
   }
 }

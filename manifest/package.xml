@@ -10,6 +10,15 @@
         <members>fileTree</members>
         <members>utilityBar</members>
         <members>integrationManager</members>
+        <members>siteRegistrationCards</members>
+        <members>integrationCard</members>
+        <members>siteRegistrationApp</members>
+        <members>statusBarComponent</members>
+        <members>messagesComponent</members>
+        <members>tableViewContainer</members>
+        <members>cardViewContainer</members>
+        <members>siteCard</members>
+        <members>siteModal</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
