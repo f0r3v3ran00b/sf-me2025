@@ -1,0 +1,20 @@
+<!-- customToggle.html -->
+<template>
+    <div>Toggle Card/DataTable View</div>
+    <div class="custom-toggle" style={toggleStyles}>
+        <label class={sliderClass}>
+            <input
+                type="checkbox"
+                checked={checked}
+                onchange={handleToggle}
+                disabled={disabled}
+            />
+            <span class="toggle-slider"></span>
+        </label>
+        <template if:true={label}>
+            <span class="toggle-label" onclick={labelClickHandler}>
+                {label}
+            </span>
+        </template>
+    </div>
+</template>

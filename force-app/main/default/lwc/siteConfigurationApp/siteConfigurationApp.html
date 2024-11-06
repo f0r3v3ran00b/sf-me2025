@@ -1,0 +1,18 @@
+<template>
+  <c-progress-indicator
+    current-step={currentStep}
+    completed-steps={completedSteps}>
+  </c-progress-indicator>
+
+  <template if:true={isStepOne}>
+    <c-region-selector-container onnextstep={handleNextStep} ></c-region-selector-container>
+  </template>
+
+  <template if:true={isStepTwo}>
+    <c-register-instance-container onnextstep={handleNextStep} onpreviousstep={handlePreviousStep}></c-register-instance-container>
+  </template>
+
+  <template if:true={isStepThree}>
+    <c-register-site-container onnextstep={handleNextStep} onpreviousstep={handlePreviousStep}></c-register-site-container>
+  </template>
+</template>

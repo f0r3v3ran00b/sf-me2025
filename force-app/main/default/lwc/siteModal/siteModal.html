@@ -1,57 +1,50 @@
 <template>
-  <template if:true={isModalOpen}>
-      <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
-          <div class="slds-modal__container">
-              <!-- Modal Header -->
-              <header class="slds-modal__header">
-                  <lightning-button-icon
-                      icon-name="utility:close"
-                      variant="bare-inverse"
-                      alternative-text="Close"
-                      class="slds-modal__close"
-                      onclick={handleClose}>
-                  </lightning-button-icon>
-                  <h2 class="slds-text-heading_medium">{modalTitle}</h2>
-              </header>
-              <!-- Modal Content -->
-              <div class="slds-modal__content slds-p-around_medium">
-                  <!-- Select Site Type (only when adding new and type not selected) -->
-                  <template if:true={isAddingNew} if:false={currentSite.type}>
-                      <lightning-combobox
-                          name="siteType"
-                          label="Select Site Type"
-                          placeholder="Select type"
-                          options={siteTypeOptions}
-                          value={currentSite.type}
-                          onchange={handleTypeChange}>
-                      </lightning-combobox>
-                  </template>
-                  <!-- Site Details Form -->
-                  <template if:true={currentSite.type}>
-                      <div class="slds-m-top_medium slds-grid slds-wrap slds-gutters">
-                          <template for:each={currentFields} for:item="field">
-                              <div key={field.name} class="slds-col slds-size_1-of-1 slds-p-around_x-small">
-                                  <lightning-input
-                                      label={field.label}
-                                      value={field.value}
-                                      type={field.type}
-                                      required={field.required}
-                                      onchange={handleInputChange}
-                                      data-field={field.name}>
-                                  </lightning-input>
-                              </div>
-                          </template>
-                      </div>
-                  </template>
-              </div>
-              <!-- Modal Footer -->
-              <footer class="slds-modal__footer">
-                  <lightning-button variant="neutral" label="Cancel" onclick={handleClose}></lightning-button>
-                  <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
-              </footer>
-          </div>
-      </section>
-      <!-- Modal Backdrop -->
-      <div class="slds-backdrop slds-backdrop_open"></div>
-  </template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Close"
+                        variant="bare"
+                        class="slds-modal__close"
+                        onclick={handleClose}>
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">Add/Edit Site</h2>
+                </header>
+                <!-- Modal Content -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <!-- Site Type Selection -->
+                    <lightning-combobox
+                        name="siteType"
+                        label="Site Type"
+                        options={siteTypeOptions}
+                        value={siteType}
+                        onchange={handleTypeChange}>
+                    </lightning-combobox>
+
+                    <!-- Dynamic Fields -->
+                    <template for:each={currentFields} for:item="field">
+                        <lightning-input
+                            key={field.name}
+                            name={field.name}
+                            label={field.label}
+                            type={field.type}
+                            required={field.required}
+                            value={field.value}
+                            onchange={handleInputChange}
+                            data-field={field.name}>
+                        </lightning-input>
+                    </template>
+                </div>
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleClose}></lightning-button>
+                    <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
 </template>

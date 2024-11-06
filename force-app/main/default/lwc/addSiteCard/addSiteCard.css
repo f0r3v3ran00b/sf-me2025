@@ -1,0 +1,11 @@
+.add-site-card {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.add-site-card:hover {
+    background-color: #f3f3f3;
+}

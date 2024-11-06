@@ -1,0 +1,13 @@
+<template>
+    <lightning-datatable
+        key-field="id"
+        data={sites}
+        columns={columns}
+        onsort={handleSort}
+        onrowaction={handleRowAction}
+        onrowselection={handleSelectionChange}
+        hide-checkbox-column=false
+        show-row-number-column=false
+        max-row-selection="5">
+    </lightning-datatable>
+</template>

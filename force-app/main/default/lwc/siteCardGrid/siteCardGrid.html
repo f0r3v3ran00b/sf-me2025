@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <template for:each={sites} for:item="site">
+            <div key={site.id} class="slds-col slds-size_1-of-3">
+                <c-site-card
+                    site={site}
+                    onsiteaction={handleSiteAction}>
+                </c-site-card>
+            </div>
+        </template>
+        <!-- Add New Site Card -->
+        <div class="slds-col slds-size_1-of-3">
+            <c-add-site-card onclick={handleAddSite}></c-add-site-card>
+        </div>
+    </div>
+</template>

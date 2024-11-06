@@ -1,0 +1,83 @@
+/* customToggle.css */
+:host {
+    --toggle-width: 44px;
+    --toggle-height: 24px;
+    --thumb-size: 20px;
+    --active-color: #2196F3;
+    --inactive-color: #ccc;
+    --hover-color: #aaa;
+    --translate-x: 20px;
+}
+
+.custom-toggle {
+    display: inline-flex;
+    align-items: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--inactive-color);
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: var(--thumb-size);
+    width: var(--thumb-size);
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--active-color);
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px var(--active-color);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(var(--translate-x));
+}
+
+.toggle-switch:not(.toggle-disabled):hover .toggle-slider {
+    background-color: var(--hover-color);
+}
+
+.toggle-switch.toggle-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toggle-label {
+    margin-left: 8px;
+    font-size: 14px;
+    user-select: none;
+}
+
+.toggle-disabled .toggle-label {
+    cursor: not-allowed;
+}

@@ -41,15 +41,18 @@
         <!-- Modal Content -->
         <div class="slds-modal__content slds-p-around_medium">
           <!-- Select Integration Type (only when adding new and type not selected) -->
-          <template if:true={isAddingNew} if:false={newIntegration.type}>
-            <lightning-combobox
-              name="integrationType"
-              label="Select Integration Type"
-              placeholder="Select type"
-              options={integrationTypeOptions}
-              value={newIntegration.type}
-              onchange={handleTypeChange}>
-            </lightning-combobox>
+          <!-- Select Integration Type (only when adding new and type not selected) -->
+          <template if:true={isAddingNew}>
+            <template if:false={newIntegration.type}>
+              <lightning-combobox
+                name="integrationType"
+                label="Select Integration Type"
+                placeholder="Select type"
+                options={integrationTypeOptions}
+                value={newIntegration.type}
+                onchange={handleTypeChange}>
+              </lightning-combobox>
+            </template>
           </template>
           <!-- Integration Details Form -->
           <template if:true={newIntegration.type}>

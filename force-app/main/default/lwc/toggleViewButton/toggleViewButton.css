@@ -1,0 +1,40 @@
+/* toggleViewButton.css */
+.toggle-button {
+    /* background-color: #0070d2; Salesforce blue */
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 40px; /* Reduced from 48px to 40px */
+    height: 40px; /* Reduced from 48px to 40px */
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-button:hover {
+    /* background-color: #005fb2; */
+    background-color: #ffffff;
+}
+
+/* Additional styles for the icon */
+.toggle-button .toggle-icon lightning-primitive-icon {
+    fill: #ffffff;
+}
+
+.toggle-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-button lightning-icon {
+    fill: #ffffff; /* Set the icon color to white for higher contrast */
+}
+
+.toggle-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #80c0ff;
+}

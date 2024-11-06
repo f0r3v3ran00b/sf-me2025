@@ -1,61 +1,79 @@
-// siteModal.js
 import { LightningElement, api, track } from 'lwc';
 
 export default class SiteModal extends LightningElement {
-  @api isModalOpen = false;
-  @api site = {};
-  @api modalTitle = 'Add New Site';
-  @api siteTypeOptions;
-  @api siteFields;
+    @api isModalOpen = false;
+    @api site = {};
+    @track siteType = '';
+    @track siteFields = [];
+    @track siteData = {};
 
-  @track currentSite = {};
-  @track currentFields = [];
-  @track isAddingNew = false;
+    // Sample site type options and fields
+    siteTypeOptions = [
+        { label: 'AWS S3', value: 'AWS S3' },
+        { label: 'Dropbox', value: 'Dropbox' },
+        // Add more types...
+    ];
 
-  connectedCallback() {
-    this.currentSite = { ...this.site };
-    this.isAddingNew = !this.site.id;
+    siteFieldsConfig = {
+        'AWS S3': [
+            { label: 'Name', name: 'name', type: 'text', required: true },
+            // Add more fields...
+        ],
+        'Dropbox': [
+            { label: 'Name', name: 'name', type: 'text', required: true },
+            // Add more fields...
+        ],
+    };
 
-    if (this.isAddingNew) {
-      this.currentSite.type = '';
-    } else {
-      this.updateCurrentFields();
+    connectedCallback() {
+        if (this.site && this.site.type) {
+            this.siteType = this.site.type;
+            this.siteData = { ...this.site };
+            this.updateSiteFields();
+        }
     }
-  }
 
-  updateCurrentFields() {
-    if (this.currentSite && this.currentSite.type) {
-      const fields = this.siteFields[this.currentSite.type] || [];
-      this.currentFields = fields.map(field => ({
-        ...field,
-        value: this.currentSite[field.name] || '',
-      }));
-    } else {
-      this.currentFields = [];
+    updateSiteFields() {
+        if (this.currentSite && this.currentSite.type) {
+            const fields = this.siteFields[this.currentSite.type] || [];
+            this.currentFields = fields.map(field => ({
+                ...field,
+                value: this.currentSite[field.name] || '',
+            }));
+        } else {
+            this.currentFields = [];
+        }
     }
-  }
 
-  handleTypeChange(event) {
-    this.currentSite.type = event.detail.value;
-    this.updateCurrentFields();
-  }
-
-  handleInputChange(event) {
-    const field = event.target.dataset.field;
-    const value = event.target.value;
-    this.currentSite = { ...this.currentSite, [field]: value };
-  }
-
-  handleSave() {
-    // Validate required fields
-    if (!this.currentSite.name || !this.currentSite.type) {
-      alert('Please fill in the required fields.');
-      return;
+    handleInputChange(event) {
+        const fieldName = event.target.dataset.field;
+        const value = event.target.value;
+    
+        // Update the currentSite data
+        this.currentSite = { ...this.currentSite, [fieldName]: value };
+    
+        // Update the value in currentFields
+        this.currentFields = this.currentFields.map(field => {
+            if (field.name === fieldName) {
+                return { ...field, value };
+            }
+            return field;
+        });
     }
-    this.dispatchEvent(new CustomEvent('save', { detail: this.currentSite }));
-  }
 
-  handleClose() {
-    this.dispatchEvent(new CustomEvent('close'));
-  }
+    handleInputChange(event) {
+        const fieldName = event.target.name;
+        this.siteData[fieldName] = event.target.value;
+    }
+
+    handleSave() {
+        // Validate required fields
+        // ... Validation logic ...
+
+        this.dispatchEvent(new CustomEvent('save', { detail: this.siteData }));
+    }
+
+    handleClose() {
+        this.dispatchEvent(new CustomEvent('close'));
+    }
 }

@@ -19,6 +19,14 @@
         <members>cardViewContainer</members>
         <members>siteCard</members>
         <members>siteModal</members>
+        <members>registerSiteContainer</members>
+        <members>addSiteCard</members>
+        <members>confirmationDialog</members>
+        <members>searchBar</members>
+        <members>siteCardGrid</members>
+        <members>siteDataTable</members>
+        <members>toggleViewButton</members>
+        <members>customToggle</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>

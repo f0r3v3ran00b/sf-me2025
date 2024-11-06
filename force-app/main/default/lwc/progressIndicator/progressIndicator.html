@@ -1,0 +1,13 @@
+<!-- progressIndicator.html -->
+<template>
+  <lightning-progress-indicator current-step={currentStep} variant="base">
+    <template for:each={computedSteps} for:item="step">
+      <lightning-progress-step
+        key={step.value}
+        label={step.label}
+        value={step.value}
+        class={step.stepClass}>
+      </lightning-progress-step>
+    </template>
+  </lightning-progress-indicator>
+</template>

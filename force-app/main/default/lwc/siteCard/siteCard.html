@@ -1,0 +1,35 @@
+<template>
+    <div class="slds-box slds-m-around_x-small site-card">
+        <div class="slds-media slds-media_center slds-m-bottom_small">
+            <div class="slds-media__body">
+                <h3 class="slds-text-heading_small slds-truncate" title={site.name}>{site.name}</h3>
+                <p class="slds-truncate" title={site.type}>{site.type}</p>
+                <!-- Additional information truncated -->
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="slds-grid slds-grid_align-spread slds-m-top_small">
+            <lightning-button-icon
+                icon-name="utility:edit"
+                alternative-text="Edit"
+                title="Edit"
+                data-action="edit"
+                onclick={handleAction}>
+            </lightning-button-icon>
+            <lightning-button-icon
+                icon-name="utility:delete"
+                alternative-text="Delete"
+                title="Delete"
+                data-action="delete"
+                onclick={handleAction}>
+            </lightning-button-icon>
+            <lightning-button-icon
+                icon-name="utility:sync"
+                alternative-text="Test Connection"
+                title="Test Connection"
+                data-action="test"
+                onclick={handleAction}>
+            </lightning-button-icon>
+        </div>
+    </div>
+</template>
