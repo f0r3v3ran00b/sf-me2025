@@ -1,35 +1,62 @@
+<!-- Template -->
 <template>
-    <div class="slds-box slds-m-around_x-small site-card">
-        <div class="slds-media slds-media_center slds-m-bottom_small">
-            <div class="slds-media__body">
-                <h3 class="slds-text-heading_small slds-truncate" title={site.name}>{site.name}</h3>
-                <p class="slds-truncate" title={site.type}>{site.type}</p>
-                <!-- Additional information truncated -->
+    <div class="flip-card" onclick={handleCardClick}>
+        <div class={cardClasses}>
+            <!-- Front of card -->
+            <div class="flip-card-front slds-box">
+                <div class="slds-media slds-media_center slds-m-bottom_small">
+                    <div class="slds-media__figure">
+                        <lightning-icon 
+                            icon-name="standard:webcart" 
+                            size="medium">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h3 class="slds-text-heading_small slds-truncate" title={site.name}>{site.name}</h3>
+                        <p class="slds-truncate" title={site.type}>{site.type}</p>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="slds-grid slds-m-top_small action-buttons">
+                    <lightning-button-icon
+                        icon-name="utility:edit"
+                        alternative-text="Edit"
+                        title="Edit"
+                        data-action="edit"
+                        onclick={handleAction}>
+                    </lightning-button-icon>
+                    <lightning-button-icon
+                        icon-name="utility:delete"
+                        alternative-text="Delete"
+                        title="Delete"
+                        data-action="delete"
+                        onclick={handleAction}>
+                    </lightning-button-icon>
+                    <lightning-button-icon
+                        icon-name="utility:sync"
+                        alternative-text="Test Connection"
+                        title="Test Connection"
+                        data-action="test"
+                        onclick={handleAction}>
+                    </lightning-button-icon>
+                </div>
             </div>
-        </div>
-        <!-- Actions -->
-        <div class="slds-grid slds-grid_align-spread slds-m-top_small">
-            <lightning-button-icon
-                icon-name="utility:edit"
-                alternative-text="Edit"
-                title="Edit"
-                data-action="edit"
-                onclick={handleAction}>
-            </lightning-button-icon>
-            <lightning-button-icon
-                icon-name="utility:delete"
-                alternative-text="Delete"
-                title="Delete"
-                data-action="delete"
-                onclick={handleAction}>
-            </lightning-button-icon>
-            <lightning-button-icon
-                icon-name="utility:sync"
-                alternative-text="Test Connection"
-                title="Test Connection"
-                data-action="test"
-                onclick={handleAction}>
-            </lightning-button-icon>
+            
+            <!-- Back of card -->
+            <div class="flip-card-back slds-box">
+                <div class="slds-p-around_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Details</h3>
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label">ID:</dt>
+                        <dd class="slds-dl_horizontal__detail">{site.id}</dd>
+                        <dt class="slds-dl_horizontal__label">Status:</dt>
+                        <dd class="slds-dl_horizontal__detail">{site.status}</dd>
+                        <dt class="slds-dl_horizontal__label">URL:</dt>
+                        <dd class="slds-dl_horizontal__detail">{site.url}</dd>
+                        <!-- Add more details as needed -->
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -27,10 +27,14 @@
         <members>siteDataTable</members>
         <members>toggleViewButton</members>
         <members>customToggle</members>
+        <members>registerAgainButton</members>
+        <members>registerInstanceContainer</members>
+        <members>viewSwitcher</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
         <members>IntegrationController</members>
+        <members>SiteRegistrationController</members>
         <name>ApexClass</name>
     </types>
     <version>62.0</version>
