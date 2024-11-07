@@ -100,6 +100,11 @@ export default class RegisterSiteContainer extends LightningElement {
         this.viewMode = event.detail.viewMode;
     }
 
+    handleViewChange(event) {
+        //this.viewMode = this.viewMode === 'datatable' ? 'card' : 'datatable';
+        this.viewMode = event.detail.viewMode;
+    }
+
     handleSiteChange(event) {
         this.sites = event.detail.sites;
         this.filterSites();

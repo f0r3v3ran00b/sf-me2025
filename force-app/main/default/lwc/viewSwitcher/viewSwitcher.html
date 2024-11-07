@@ -1,0 +1,32 @@
+<!-- viewSwitcher/viewSwitcher.html -->
+<template>
+    <div class={containerClass} role="group">
+        <button 
+            class={datatableViewClass}
+            data-view="datatable"
+            onclick={handleViewChange}
+            title="Datatable View"
+        >
+            <lightning-icon 
+                icon-name="utility:table" 
+                size="x-small" 
+                class="slds-button__icon"
+                alternative-text="Datatable View"
+            ></lightning-icon>
+        </button>
+        <button 
+            class={cardViewClass}
+            data-view="card"
+            onclick={handleViewChange}
+            title="Card View"
+        >
+            <lightning-icon 
+                icon-name="utility:apps" 
+                size="x-small" 
+                class="slds-button__icon"
+                alternative-text="Card View"
+            ></lightning-icon>
+        </button>
+        <span class="slider"></span>
+    </div>
+</template>

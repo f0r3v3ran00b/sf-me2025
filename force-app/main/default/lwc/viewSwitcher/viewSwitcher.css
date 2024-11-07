@@ -1,0 +1,55 @@
+/* viewSwitcher/viewSwitcher.css */
+.view-switcher {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    padding: 2px;
+}
+
+.view-button {
+    position: relative;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.view-button:focus {
+    outline: none;
+}
+
+.slider {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    height: calc(100% - 4px);
+    width: 32px;
+    background: #f3f3f3;
+    border-radius: 0.125rem;
+    transition: transform 0.2s ease;
+}
+
+/* Slider position for card view (default) */
+.view-switcher.card .slider {
+    transform: translateX(32px);
+}
+
+/* Slider position for datatable view */
+.view-switcher.datatable .slider {
+    transform: translateX(0);
+}
+
+/* Active button styles */
+.view-button.active {
+    color: #0070d2;
+}
+
+/* Optional hover effect */
+.view-button:hover {
+    color: #014486;
+}
